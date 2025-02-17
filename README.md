@@ -12,6 +12,8 @@ Current modules are as follows:
 * Date selector
 * Checkbox selector
 * Option selector
+* Dictionary viewer
+* List viewer
 
 Included in this repo is an basic program where you can test the functions from a users perspective and see how to use the functions. There is also a Wiki in which you can see the functions with in detail explanations.
 
@@ -32,6 +34,8 @@ De huidige modules zijn als volgt:
 * Date selector
 * Checkbox selector
 * Option selector
+* Dictionary viewer
+* List viewer
 
 Inbegrepen in dit repo zit een basic progamma waarin je de functies kan testen van de gebruikers zijde en zien hoe de functies werken. Er is ook een Wiki waarin je de functies kan zien met een gedetaileerde uitleg.
 
