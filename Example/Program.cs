@@ -137,7 +137,7 @@
 
     static void UseListViewer() {
         string header = "=====================\nList viewer - Example\n=====================";
-        List<string> UIOptions = new List<string>(){"string", "int", "Exit"};
+        List<string> UIOptions = new List<string>(){"string", "int", "custom class", "Exit"};
         bool Done = false;
 
         while (!Done) {
@@ -167,6 +167,18 @@
                     TerminalUIKit.ListViewer(intHeader, footer, intList);
                     break;
                 case 2:
+                    List<Player> playerList = new List<Player>() {
+                        new Player("Rhulk", "First disciple of the Witness"),
+                        new Player("Guardian (Warlock)", "Warlock"),
+                        new Player("Guardian (Titan)", "Titan"),
+                        new Player("Guardian (Hunter)", "Hunter"),
+                        new Player("Ghost", "Helper of the Guardian")
+                    };
+
+                    string classHeader = "====================================\nList viewer (custom class) - Example\n====================================";
+                    TerminalUIKit.ListViewer(classHeader, footer, playerList);
+                    break;
+                case 3:
                     Done = true;
                     break;
             }
