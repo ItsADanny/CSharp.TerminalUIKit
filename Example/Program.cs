@@ -4,7 +4,7 @@
     static void Main() {
         bool Done = false;
         string header = "=========================\nTerminalUIKit UI examples\n=========================";
-        List<string> UIOptions = ["Option selector example", "Int selector example", "Int selector (with Emoji) example", "Date selector", "Time selector", "Checkbox selector", "Checkbox selector (Dictionary)", "Exit"];
+        List<string> UIOptions = ["Option selector example", "Int selector example", "Int selector (with Emoji) example", "Date selector", "Time selector", "Checkbox selector", "Checkbox selector (Dictionary)", "Dictionary viewer", "List viewer", "Exit"];
 
         while (!Done) {
             switch (TerminalUIKit.OptionSelector(header, footer, UIOptions)) {
@@ -30,6 +30,12 @@
                     UseCheckBoxSelector_Dict();
                     break;
                 case 7:
+                    UseDictionaryViewer();
+                    break;
+                case 8:
+                    UseListViewer();
+                    break;
+                case 9:
                     Done = true;
                     Console.WriteLine("Closing down program, thank you for using this example!");
                     break;
@@ -113,5 +119,57 @@
         TimeOnly returnValue = TerminalUIKit.TimeSelector(header);
         Console.WriteLine($"Selected time: {returnValue}");
         Thread.Sleep(2500);
+    }
+
+    static void UseDictionaryViewer() {
+        Dictionary<string, bool> DictToView = new Dictionary<string, bool>(){
+            {"Is the cake a lie?", true},
+            {"Is the Companion Cube alive?", false},
+            {"Do you like Portal references?", true},
+            {"Is this usefull for you?", false},
+            {"Did you check/uncheck everything you wanted?", false}
+        };
+
+        string header = "===========================\nDictionary viewer - Example\n===========================";
+
+        TerminalUIKit.DictionaryViewer(header, footer, DictToView);
+    }
+
+    static void UseListViewer() {
+        string header = "=====================\nList viewer - Example\n=====================";
+        List<string> UIOptions = new List<string>(){"string", "int", "Exit"};
+        bool Done = false;
+
+        while (!Done) {
+            switch (TerminalUIKit.OptionSelector(header, footer, UIOptions)) {
+                case 0:
+                    List<string> stringList = new List<string>() {
+                        "Item 1",
+                        "Item 2",
+                        "Item 3",
+                        "Item 4",
+                        "Item 5"
+                    };
+                    string stringHeader = "==============================\nList viewer (string) - Example\n==============================";
+
+                    TerminalUIKit.ListViewer(stringHeader, footer, stringList);
+                    break;
+                case 1:
+                    List<int> intList = new List<int>() {
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                    };
+                    string intHeader = "===========================\nList viewer (int) - Example\n===========================";
+
+                    TerminalUIKit.ListViewer(intHeader, footer, intList);
+                    break;
+                case 2:
+                    Done = true;
+                    break;
+            }
+        }
     }
 }
