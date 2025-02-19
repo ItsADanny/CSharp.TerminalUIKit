@@ -667,89 +667,28 @@ public static class TerminalUIKit {
             }   
             pos++;
         }
+
+        Console.Clear();
         outputToPrint += topAndBottomBar;
-        Console.WriteLine(Header);
+        if (Header is not null) {
+            Console.WriteLine(Header);
+        }
         Console.WriteLine(outputToPrint);
-        Console.WriteLine(Footer);
+        if (Footer is not null) {
+            Console.WriteLine(Footer);
+        }
         Console.ReadLine();
     }
 
     public static void DictionaryViewer<T>(string Header=null, string Footer=null, Dictionary<int, T> DictionaryToView=null) {
         if (DictionaryToView is null) return;
 
-        int maxSizeForKey = 0;
-        int maxSizeForValue = 0;
-        foreach (KeyValuePair<int, T> keyValueItem in DictionaryToView) {
-            int sizeKey = keyValueItem.Key.ToString().Count();
-            int sizeValue = 0;
-            if (keyValueItem.Value is not null) {
-                sizeValue = Convert.ToString(keyValueItem.Value).Count();
-            } else {
-                sizeValue = 0;
-            }
-            
-            if (sizeKey > maxSizeForKey) {
-                maxSizeForKey = sizeKey;
-            }
-
-            if (sizeValue > maxSizeForValue) {
-                maxSizeForValue = sizeValue;
-            }
+        Dictionary<string, T> ConvertedDictionaryToView = new Dictionary<string, T>();
+        foreach (KeyValuePair<int, T> Item in DictionaryToView) {
+            ConvertedDictionaryToView.Add(Item.Key.ToString(), Item.Value);
         }
-        maxSizeForKey += 2;
-        maxSizeForValue += 2;
 
-        string topAndBottomBar = TextGeneration(maxSizeForKey + maxSizeForValue + 3, "=");
-        string dividerBar = $"|{TextGeneration(maxSizeForKey + maxSizeForValue + 1, "-")}|";
-        string outputToPrint = $"{topAndBottomBar}\n";
-
-        int pos = 0;
-        foreach (KeyValuePair<int, T> keyValueItem in DictionaryToView) {
-            KeyValuePair<string, string> spacesFrontAndBackKey = new KeyValuePair<string, string>();
-            KeyValuePair<string, string> spacesFrontAndBackValue = new KeyValuePair<string, string>();
-            if (IsEven(maxSizeForKey)) {
-                int spacesrequired = maxSizeForKey - Convert.ToString(keyValueItem.Key).Count();
-                spacesFrontAndBackKey = new KeyValuePair<string, string>(TextGeneration(spacesrequired / 2), TextGeneration(spacesrequired / 2));
-            } else {
-                int spacesrequired = maxSizeForKey - Convert.ToString(keyValueItem.Key).Count();
-                if (IsEven(spacesrequired)) {
-                    spacesFrontAndBackKey = new KeyValuePair<string, string>(TextGeneration(spacesrequired / 2), TextGeneration(spacesrequired / 2));
-                } else {
-                    int spacesFront = (int) (Convert.ToDouble(spacesrequired) / 2.0);
-                    int spacesBack = Convert.ToInt32(Convert.ToDouble(spacesrequired) / 2.0);
-                    spacesFrontAndBackKey = new KeyValuePair<string, string>(TextGeneration(spacesFront), TextGeneration(spacesBack));
-                }
-            }
-            string value = "";
-            if (keyValueItem.Value is not null) {
-                value = keyValueItem.Value.ToString();
-            }
-
-            if (IsEven(maxSizeForValue)) {
-                int spacesrequired = maxSizeForValue - value.Count();
-                spacesFrontAndBackValue = new KeyValuePair<string, string>(TextGeneration(spacesrequired / 2), TextGeneration(spacesrequired / 2));
-            } else {
-                int spacesrequired = maxSizeForValue - value.Count();
-                if (IsEven(spacesrequired)) {
-                    spacesFrontAndBackValue = new KeyValuePair<string, string>(TextGeneration(spacesrequired / 2), TextGeneration(spacesrequired / 2));
-                } else {
-                    int spacesFront = (int) (Convert.ToDouble(spacesrequired) / 2.0);
-                    int spacesBack = Convert.ToInt32(Convert.ToDouble(spacesrequired) / 2.0);
-                    spacesFrontAndBackValue = new KeyValuePair<string, string>(TextGeneration(spacesFront), TextGeneration(spacesBack));
-                }
-            }
-
-            outputToPrint += $"|{spacesFrontAndBackKey.Key}{keyValueItem.Key}{spacesFrontAndBackKey.Value}|{spacesFrontAndBackValue.Key}{keyValueItem.Value}{spacesFrontAndBackValue.Value}|\n";
-            if (pos != DictionaryToView.Count) {
-                outputToPrint += $"{dividerBar}\n";
-            }   
-            pos++;
-        }
-        outputToPrint += topAndBottomBar;
-        Console.WriteLine(Header);
-        Console.WriteLine(outputToPrint);
-        Console.WriteLine(Footer);
-        Console.ReadLine();
+        DictionaryViewer(Header, Footer, ConvertedDictionaryToView);
     }
 
     public static void ListViewer<T>(string Header=null, string Footer=null, List<T> ListToView=null) {
@@ -792,9 +731,15 @@ public static class TerminalUIKit {
             pos++;
         }
         outputToPrint += topAndBottomBar;
-        Console.WriteLine(Header);
+        
+        Console.Clear();
+        if (Header is not null) {
+            Console.WriteLine(Header);
+        }
         Console.WriteLine(outputToPrint);
-        Console.WriteLine(Footer);
+        if (Footer is not null) {
+            Console.WriteLine(Footer);
+        }
         Console.ReadLine();
     }
 

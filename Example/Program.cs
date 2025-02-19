@@ -43,7 +43,7 @@
         } 
     }
 
-    static void UseOptionSelector() {
+    private static void UseOptionSelector() {
         List<string> options = ["Option 1", "Option 2", "Option 3", "Option 4", "Option 5", "Option 6", "Option 7"];
         string header = "=========================\nOption selector - Example\n=========================";
         int returnValue = TerminalUIKit.OptionSelector(header, footer, options);
@@ -51,7 +51,7 @@
         Thread.Sleep(2500);
     }
 
-    static void UseCheckBoxSelector() {
+    private static void UseCheckBoxSelector() {
         List<string> options = new List<string>(){
             "Is the cake a lie?",
             "Is the Companion Cube alive?",
@@ -70,7 +70,7 @@
         Thread.Sleep(2500);
     }
 
-    static void UseCheckBoxSelector_Dict() {
+    private static void UseCheckBoxSelector_Dict() {
         Dictionary<string, bool> options = new Dictionary<string, bool>(){
             {"Is the cake a lie?", true},
             {"Is the Companion Cube alive?", false},
@@ -89,14 +89,14 @@
         Thread.Sleep(2500);
     }
 
-    static void UseIntSelector() {
+    private static void UseIntSelector() {
         string header = "======================\nInt selector - Example\n======================";
         int returnValue = TerminalUIKit.IntSelector(header, 1, 5, 3, null, 1);
         Console.WriteLine($"Selected integer amount: {returnValue}");
         Thread.Sleep(2500);
     }
 
-    static void UseIntSelectorWithEmoji() {
+    private static void UseIntSelectorWithEmoji() {
         string header = "===================================\nInt selector (With Emoji) - Example\n===================================";
         int returnValue = TerminalUIKit.IntSelector(header, 1, 5, 3, "⭐️", 1);
         string SelectedStarAmount = "";
@@ -107,35 +107,61 @@
         Thread.Sleep(2500);
     }
 
-    static void UseDateSelector() {
+    private static void UseDateSelector() {
         string header = "";
         DateOnly date = TerminalUIKit.DateSelector(header);
         Console.WriteLine($"Selected date: {date}");
         Thread.Sleep(2500);
     }
 
-    static void UseTimeSelector() {
+    private static void UseTimeSelector() {
         string header = "";
         TimeOnly returnValue = TerminalUIKit.TimeSelector(header);
         Console.WriteLine($"Selected time: {returnValue}");
         Thread.Sleep(2500);
     }
 
-    static void UseDictionaryViewer() {
-        Dictionary<string, bool> DictToView = new Dictionary<string, bool>(){
-            {"Is the cake a lie?", true},
-            {"Is the Companion Cube alive?", false},
-            {"Do you like Portal references?", true},
-            {"Is this usefull for you?", false},
-            {"Did you check/uncheck everything you wanted?", false}
-        };
-
+    private static void UseDictionaryViewer() {
         string header = "===========================\nDictionary viewer - Example\n===========================";
+        List<string> UIOptions = new List<string>(){"string", "int", "Exit"};
+        bool Done = false;
 
-        TerminalUIKit.DictionaryViewer(header, footer, DictToView);
+        while (!Done) {
+            switch (TerminalUIKit.OptionSelector(header, footer, UIOptions)) {
+                case 0:
+                    Dictionary<string, bool> DictToViewStr = new Dictionary<string, bool>(){
+                        {"Is the cake a lie?", true},
+                        {"Is the Companion Cube alive?", false},
+                        {"Do you like Portal references?", true},
+                        {"Is this usefull for you?", false},
+                        {"Did you check/uncheck everything you wanted?", false}
+                    };
+
+                    string stringHeader = "====================================\nDictionary viewer (string) - Example\n====================================";
+
+                    TerminalUIKit.DictionaryViewer(stringHeader, footer, DictToViewStr);
+                    break;
+                case 1:
+                    Dictionary<int, string> DictToViewInt = new Dictionary<int, string>(){
+                        {1, "Create a perso"},
+                        {2, "Make a list"},
+                        {3, "Add the people to the list"},
+                        {4, "Display the list of people"},
+                        {5, "Succes!"}
+                    };
+
+                    string intHeader = "=================================\nDictionary viewer (int) - Example\n=================================";
+
+                    TerminalUIKit.DictionaryViewer(intHeader, footer, DictToViewInt);
+                    break;
+                case 2:
+                    Done = true;
+                    break;
+            }
+        }
     }
 
-    static void UseListViewer() {
+    private static void UseListViewer() {
         string header = "=====================\nList viewer - Example\n=====================";
         List<string> UIOptions = new List<string>(){"string", "int", "custom class", "Exit"};
         bool Done = false;
@@ -183,5 +209,5 @@
                     break;
             }
         }
-    }
+    } 
 }
